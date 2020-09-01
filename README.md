@@ -3,4 +3,4 @@
 
 |   #   | Folder Link | Assignment Description |
 | :---: | ----------- | ---------------------- |
-|    1   |    https://github.com/jbwilliams1006/Assignments/blob/master/Comment         |        Assignment to ensure proper commenting and README creation                |
+|    1   |    H01     |        Assignment to ensure proper commenting and README creation                |

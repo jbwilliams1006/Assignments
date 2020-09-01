@@ -46,9 +46,9 @@ struct Node
 class List
 {
   private:
-    Node *Head;
-    Node *Tail;
-    int Size;
+    Node *Head;//the start of the link list
+    Node *Tail;//the last pointer on the link list
+    int Size;//the size of the linked list
 
   public:
     List()
@@ -57,7 +57,7 @@ class List
         Size = 0;
     }
 
-    void Push(int val)
+    void Push(int val) // funtion that adds to the linked list
     {
         // allocate new memory and init node
         Node *Temp = new Node(val);
@@ -90,7 +90,7 @@ class List
         Size++;
     }
 
-    void PrintTail()
+    void PrintTail() // funtion that prints the last nodes value
     {
         cout << Tail->x << endl;
     }

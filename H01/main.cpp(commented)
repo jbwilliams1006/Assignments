@@ -30,16 +30,16 @@ int A[100];
 struct Node
 {
     int x;
-    Node *next;
+    Node *next;// Next available location
     Node()
     {
         x = -1;
-        next = NULL;
+        next = NULL;// Next available location
     }
     Node(int n)
     {
         x = n;
-        next = NULL;
+        next = NULL;// Next available location
     }
 };
 

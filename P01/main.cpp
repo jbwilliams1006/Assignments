@@ -50,6 +50,7 @@ using namespace std;
 class Stack {
 private:
     int *S;       //array pointer
+    int *S2;      //second array pointer
     int capacity; //max stack size
     int top;      //current top (index)
     int size;     //current num items
@@ -101,22 +102,19 @@ public:
     void Push(int data) {
       if(size == capacity)
       {
-       int newcap = capacity*2;  //sets new array size 
-       int *newS = new int [newcap]; //creates new array equal to new capcity size
-        for (int i=0; i<capacity; i++) //for loop to copy array data
-          newS[i] = S[i];
+       S2 = new int[2*size]; //creates new array equal to new capcity size
+        for (int i=0; i<size; i++) //for loop to copy array data
+          S2[i] = S[i];
       delete [] S;                  // deleting old array
-      S = newS;                     // setting old array size to new array 
+      S = S2;                     // setting old array size to new array 
       int mul = 1;                  //Used to reduce stacks size
-      capacity = newcap;
+      capacity = size;
       }
-      else
-      {
         top++;              // move top of stack up
         size++;             // increment size
         S[top] = data;      // add item to array
        int mul = 0;         //Used to reduce stacks size
-      }
+
     }
 
     /**
@@ -190,37 +188,19 @@ public:
         }
     }
 
-    /**
-     * Overloaded ostream <<
-     *    Lets us print a stack using cout
-     * Params:
-     *    ostream &os   : instance of ostream passed in by reference
-     *    const Stack   : instance of stack passed in using const so 
-     *                    it cannot be changed
-     * 
-     * Returns:
-     *     ostream 
-     */
-    friend ostream &operator<<(ostream &os, const Stack s) {
-        os << "Overloaded!!" << endl;
-        for (int i = s.top; i >= 0; i--) {
-            os << s.S[i] << endl;
-        }
-        return os;
-    }
 };
 
 int main() {
+  
     Stack S1;           // calls default constructor
     Stack S2(3);       // calls overloaded constructor
 
-    S2.Push(7);
+    S2.Push(7); //Pushing in 4 elements in a stack size of 3
     S2.Push(4);
     S2.Push(8);
     S2.Push(5);
     
     S2.Print();
-
     cout << "Popped a: " << S2.Pop() << endl;
     cout << "Popped a: " << S2.Pop() << endl;
     cout << "Popped a: " << S2.Pop() << endl;

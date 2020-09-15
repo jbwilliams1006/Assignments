@@ -8,16 +8,19 @@
 // Semester:         Fall 2020
 //
 // Description:
-//       An adjustment to the stack class to add functionality. The program adjusts the pop method being called when the stack is empty, as well as resizes the array when the stack is full
+//       An adjustment to the stack class to add functionality. The program adjusts the pop method being called when the stack is half empty, as well as resizes the array when the stack is full
 //
 // Usage:
 //       Nothing special right now.
 //
 // Files:            
-//       None
+//       input.txt
+//       P01 Output
 /////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <iomanip>
 using namespace std;
 
 /**
@@ -31,20 +34,19 @@ using namespace std;
  *      - Stack(int)
  *      - void Push()
  *      - int Pop()
- *      - bool empty()
- *      - bool full()
  *      - void Print()
- * 
+ *      - int capa ()
+ *      - int maximum ()
  * Private Methods:
  *      - None
  * 
  * Usage: 
  * 
  *  Stack S;
- *  S.Push(80);
- *  S.Push(90);
- *  S.Print();
- *  int x = S.Pop();
+ *  S.Push(value);
+ *  S.Pop;
+ *  S.capa();
+ *  S.maximum();
  *      
  */
 class Stack {
@@ -55,6 +57,7 @@ private:
     int top;      //current top (index)
     int size;     //current num items
     int mul;      //Used to reduce stacks size
+    int max;      //keeps track of max capacity
 public:
     /**
      * Stack:
@@ -70,7 +73,8 @@ public:
         S = new int[capacity];  // allocate new memory
         top = -1;               // initialize top of stack
         size = 0;               // set stack to empty
-        
+        mul = 0;
+        max = 0;                //sets max to 0
     }
 
     /**
@@ -87,7 +91,8 @@ public:
         S = new int[capacity];  // allocate new memory
         top = -1;               // initialize top of stack
         size = 0;               // set stack to empty
-        int mul;
+        mul = 0;
+        max = 0;                //sets max to 0
     }
 
     /**
@@ -102,18 +107,22 @@ public:
     void Push(int data) {
       if(size == capacity)
       {
-       S2 = new int[2*size]; //creates new array equal to new capcity size
+       int *S2 = new int[2*size]; //creates new array equal to new capcity size
         for (int i=0; i<size; i++) //for loop to copy array data
           S2[i] = S[i];
       delete [] S;                  // deleting old array
       S = S2;                     // setting old array size to new array 
-      int mul = 1;                  //Used to reduce stacks size
-      capacity = size;
-      }
+      mul++;                  //Used to reduce stacks size
+      capacity = size*2; //doubles the size of the capacity
+      cout<<"\n+ : "<<left<< setw(2)<<(size/2)<<" -> "<<size; //displays addition in stack size 
+        if (capacity>max)
+          {
+            max = capacity; //sets max to largest capacity  
+          }
+      } 
         top++;              // move top of stack up
         size++;             // increment size
         S[top] = data;      // add item to array
-       int mul = 0;         //Used to reduce stacks size
 
     }
 
@@ -127,9 +136,14 @@ public:
      *     int
      */
     int Pop() {
+      if (size < (capacity/2) && mul > 0 ) //if the stack gets below half full and
+      {                                   //has been doubled then it gets resized
+        capacity = capacity/2;
+        cout<<"\n- : "<<left<< setw(2)<<capacity*2<<" -> "<<capacity; //displays when a downsizing in the array occurs
+      }
       if (size==0)
         {
-          cout<<"Error: Stack empty!";
+          cout<<"Error: Stack empty!\n";
           int data = -1;
           return data;
         }
@@ -140,78 +154,63 @@ public:
         size--;             // update our size
         return data;        // send item back
       }
-      if (size < capacity/2 && mul == 1 ) //if the stack gets below half full and
-      {                                   //has been doubled then it gets resized
-        capacity = capacity/2;
-      }
+      
     }
 
-    /**
-     * Empty:
-     *    is the stack empty?
-     * Params:
-     *    void
-     * 
-     * Returns:
-     *     bool : true == stack is empty
-     */
-    bool Empty() {
-        //return size == 0;
-        return top == -1;
-    }
-
-    /**
-     * Full:
-     *    is the stack full?
-     * Params:
-     *    void
-     * 
-     * Returns:
-     *     bool : true == stack is full
-     */
-    bool Full() {
-        return top == capacity - 1;
-    }
-
-    /**
-     * Print:
-     *    Used so we can inspect our stack.
-     * Params:
-     *    void
-     * 
-     * Returns:
-     *     void
-     */    
     void Print() {
         for (int i = top; i >= 0; i--) {
             cout << S[i] << endl;
         }
     }
 
+    int capa() //function to get the size of the stack 
+    {
+      return capacity;
+    }
+
+    int maximum() //function to return max capacity
+    {
+      return max;
+    }
+
 };
 
 int main() {
-  
-    Stack S1;           // calls default constructor
-    Stack S2(3);       // calls overloaded constructor
+Stack S1;
+ofstream outfile;
+outfile.open ("P01 Output");
 
-    S2.Push(7); //Pushing in 4 elements in a stack size of 3
-    S2.Push(4);
-    S2.Push(8);
-    S2.Push(5);
-    
-    S2.Print();
-    cout << "Popped a: " << S2.Pop() << endl;
-    cout << "Popped a: " << S2.Pop() << endl;
-    cout << "Popped a: " << S2.Pop() << endl;
-    cout << "Popped a: " << S2.Pop() << endl;
-    cout << "Popped a: " << S2.Pop() << endl;
-  
-    
-    // S1.Push(9);
+outfile << "Name: Joshua Williams \n"
+        << "Program: P01 \n"
+        << "Date: 15 Sep 2020\n\n"
+        << "Start Size: "
+        << S1.capa() <<endl; //Prints out the starting capacity size
 
-    // //S1.Print();           // old way to print!
-    // cout << S1 << endl;     // cool way to print
+ifstream fin;
+    string command;
+    int value;
+
+    fin.open("input.txt");
+    while(!fin.eof())
+    {
+        fin>>command;           // read push or pop  
+        cout<<command<<" "; 
 
 
+        if(command == "push"){  // if command is a push we need
+            fin>>value;         // to read a value in as well
+            cout<<value;
+            S1.Push(value); //pushes value from input file into stack   
+        }
+        if(command == "pop")
+        {
+          S1.Pop();//pops value from stack
+        }
+        
+        cout<<endl;
+    }
+
+outfile <<"Max Size: "<< S1.maximum()<<endl; //Calls maximum capacity value
+outfile <<"Ending size: "<< S1.capa(); // Calls ending capacity value
+return 0;
 }

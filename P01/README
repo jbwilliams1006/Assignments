@@ -10,7 +10,9 @@ as well as resizes the array when the stack is full
 
 |   #   | File            | Description                                        |
 | :---: | --------------- | -------------------------------------------------- |
-|   1   | Main.cpp         | Main driver of my project that launches game.      |
+|   1   | Main.cpp         | Main driver of my project that launches           |
+|   2   | P01 Banner       | Banner of the program      |
+|   1   | input.txt        | Input of the program       |
 
 ### Instructions
 

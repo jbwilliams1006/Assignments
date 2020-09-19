@@ -10,7 +10,7 @@ as well as resizes the array when the stack is full
 
 |   #   | File            | Description                                        |
 | :---: | --------------- | -------------------------------------------------- |
-|   1   |  [__Main.Cpp__](https://github.com/jbwilliams1006/Void/tree/master/P01)        | Main driver of my project that launches           |
+|   1   |  [__H01__](https://github.com/jbwilliams1006/Void/tree/master/P01)        | Main driver of my project that launches           |
 |   2   | [__P01 Banner__](https://github.com/jbwilliams1006/Void/blob/master/P01/P01(Banner))       | Banner of the program      |
 |   3   | [__input.txt__](https://github.com/jbwilliams1006/Void/blob/master/P01/input.txt)        | Input of the program       |
 
